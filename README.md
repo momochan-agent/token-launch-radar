@@ -44,7 +44,9 @@ those, and a protocol "records no token", never "has none".
 - `main.ts` — entrypoint: snapshot → board → dashboard data → dossier
 - `lib/model.ts` — value model + farm-plan generator
 - `vendor/makefun-board.ts` — `buildDossier` (kit's file; see note inside)
-- `dashboard/` — offline page: `index.html`, `app.css`, `app.js` (+ generated `z-data.js`)
+- `dashboard/` — offline page: `index.html`, `app.css`, `app.js` (the board
+  data `z-data.js` is generated beside the page when you run `main.ts`, so it
+  is not committed — see "Run it" above)
 - `screenshots/` — board, detail view, filtered view
 
 ---
