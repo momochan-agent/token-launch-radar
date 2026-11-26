@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">MAKE.FUN &middot; TOKEN-RADAR-01 &middot; SNAPSHOT <span id="asof"></span></p>
+    <h1>Token Launch Radar</h1>
+    <p class="lede">Protocols that <strong>record no token</strong>, ranked by what a token would be
+    worth if their record stayed as it is. Implied value is this board&rsquo;s own claim &mdash;
+    not a prediction that a token will be issued, and never a promise of an airdrop.</p>
+    <p class="counts" id="counts"></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <details class="method">
+    <summary>How the ranking works (model radar-1)</summary>
+    <div class="method-body">
+      <p><strong>Implied value = TVL &times; category peer multiple &times; growth &times; maturity &times; chains.</strong></p>
+      <ul>
+        <li><strong>Peer multiple:</strong> for each category, the median market-cap / TVL of protocols
+          whose token already trades in this snapshot (global median when a category has fewer than 3 traded peers).
+          Traded protocols are the comparables &mdash; the board itself lists pre-token protocols only.</li>
+        <li><strong>Growth:</strong> 7-day TVL change, +35% at +100% a week, &minus;10.5% at &minus;30%.</li>
+        <li><strong>Maturity:</strong> days listed with no token recorded, 0.85 at listing rising to 1.00 after ~3 years.</li>
+        <li><strong>Chains:</strong> +3% per extra chain, capped at +12%.</li>
+      </ul>
+      <p class="note">DefiLlama&rsquo;s record is not proof: a protocol &ldquo;records no token&rdquo;, never &ldquo;has none&rdquo;.
+      Wrapped, staked and bridged products of tokens that already trade are excluded from the watchlist,
+      as are bridges, liquid-staking products and exchange products. Funding, revenue, launch dates and
+      airdrops are not in the snapshot and are never invented here.</p>
+      <div id="multiples"></div>
+      <h4>Traded peers &mdash; the comparables (market values, not ranked)</h4>
+      <p class="note">Protocols whose token already trades are kept apart from the board and shown
+      here at the market&rsquo;s own value. Their median mcap/TVL by category is the multiple the board uses.</p>
+      <div id="livepeers"></div>
+    </div>
+  </details>
+
+  <section class="controls" aria-label="Filters">
+    <label>Search <input id="q" type="search" placeholder="protocol name or slug" autocomplete="off"></label>
+    <label>Category <select id="cat"><option value="">All categories</option></select></label>
+    <label>Min TVL <select id="minTvl">
+      <option value="0">Any</option><option value="50000000">$50M+</option>
+      <option value="100000000">$100M+</option><option value="500000000">$500M+</option>
+    </select></label>
+    <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+    <label>Sort <select id="sort">
+      <option value="rank">Implied value (rank)</option>
+      <option value="tvl">TVL</option>
+      <option value="growth">7-day growth</option>
+      <option value="age">Days with no token</option>
+    </select></label>
+    <span class="shown" id="shown"></span>
+  </section>
+
+  <section id="detail" class="detail" hidden></section>
+
+  <table class="board">
+    <thead><tr>
+      <th data-k="rank">#</th><th data-k="name">Protocol</th><th data-k="category">Category</th>
+      <th>Chains</th><th data-k="tvl">TVL</th><th data-k="growth">7d</th>
+      <th data-k="multiple">Multiple</th><th data-k="value">Implied value</th><th data-k="age">Days, no token</th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="foot"><span id="footrows"></span> &middot; every protocol on the snapshot&rsquo;s watchlist is covered (marked W).
+  Farm steps are per-protocol usage plans with costs and times; they do not promise a token or an airdrop.
+  Data: DefiLlama snapshot as of <span class="asof2"></span>. Built offline by main.ts &mdash; no network.</p>
+</main>
+<script src="z-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
